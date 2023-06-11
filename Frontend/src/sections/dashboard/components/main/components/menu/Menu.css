@@ -1,6 +1,7 @@
 .dashboard_main__menu {
     display: flex;
     align-items: center;
+    height: 42px;
 }
 
 .dashboard_main__menu__title {
@@ -19,6 +20,12 @@
     align-items: center;
 }
 
+.dashboard_main__menu__title--selected__close-icon__counter {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
 .dashboard_main__menu__title:hover {
     background-color: #ececec;
 }
@@ -27,12 +34,23 @@
     margin-left: auto;
 }
 
+.dashboard_main__menu__opitions_items_selected {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: 16px;
+}
+
 .dashboard_main__menu__options__icon {
-    max-width: 22px;
-    margin-left: 8px;
+    max-width: 20px;
+    /* margin-left: 8px; */
     padding: 10px;
     border-radius: 50%;
     cursor: pointer;
+}
+
+.dashboard_main__menu__title--selected__close-icon {
+    margin-left: 0px;
 }
 
 .dashboard_main__menu__options__icon--responsive {
@@ -66,16 +84,30 @@
 
 /* mediaquery en el 770 */
 @media (max-width: 770px) {
-    .dashboard_main__menu__options__icon {
+    /* .dashboard_main__menu__options__icon {
         display: none;
+    } */
+    .dashboard_main__menu__opitions_items_selected {
+        margin-left: 8px;
     }
 
+    .dashboard_main__menu__title--selected__close-icon__counter {
+        gap: 4px;
+    }
+
+    .dashboard_main__menu__options {
+        gap: 4px;
+    }
 
     .dashboard_main__menu__options__icon--view {
         display: inline;
     }
 
     .dashboard_main__menu__options__icon--responsive {
+        display: block;
+    }
+
+    .dashboard_main__menu__options__icon--normal {
         display: block;
     }
 }

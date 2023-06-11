@@ -64,10 +64,32 @@ const deleteFolderByUserIdAndId = (userId, id) => {
   })
 }
 
+const deleteItemsByUserIdAndItems = (userId, items) => {
+  // console.log(items)
+  const ids = items.map((item) => item.id)
+
+  return new Promise((resolve, reject) => {
+    connection.query('DELETE FROM Folder WHERE userId = ? AND id IN (?)', [userId, ids], (err, rows) => {
+      if (err) {
+        reject(err)
+      }
+    })
+
+    connection.query('DELETE FROM File WHERE userId = ? AND id IN (?)', [userId, ids], (err, rows) => {
+      if (err) {
+        reject(err)
+      }
+    })
+
+    resolve()
+  })
+}
+
 module.exports = {
   createRootFolder,
   createFolder,
   getFoldersByUserIdAndParentId,
   getFolderByUserIdAndId,
   deleteFolderByUserIdAndId,
+  deleteItemsByUserIdAndItems,
 }

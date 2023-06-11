@@ -58,6 +58,7 @@
 
 .search_file__icon--filter {
     margin-left: auto;
+    cursor: pointer;
 }
 
 .user-image {
@@ -70,6 +71,7 @@
     width: 32px;
     height: 32px;
     margin-left: 20px;
+    cursor: pointer;
 }
 
 .user-image img {

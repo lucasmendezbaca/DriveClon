@@ -1,5 +1,4 @@
 import './File.css'
-import { type ItemId } from '../../../../../../../../modules/items/domain/ItemId'
 import { useItems } from '../../../../context/ItemContext'
 import PopperMenu from '../../../../../PopperMenu/PopperMenu'
 import OptionsItemMenu from '../../../../../options_item_menu/OptionsItemMenu'
@@ -20,37 +19,11 @@ interface FileProps {
 }
 
 function File({ file }: FileProps): JSX.Element {
-  const { itemsSelected, setItemsSelected } = useItems()
+  const { selectItem, selectItemIcon, isSelected } = useItems()
   const { repository } = useFiles()
   const { currentUser } = useAuth()
   const { handleNewChange } = useFolders()
-  const { id, name } = file
   const [showFileViwer, setShowFileViwer] = useState(false)
-
-  function selectItem(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void {
-    if (e.ctrlKey) {
-      if (itemsSelected.includes(id) === true) {
-        setItemsSelected(itemsSelected.filter((item: ItemId) => item !== id))
-      } else {
-        setItemsSelected([...itemsSelected, id])
-      }
-    } else {
-      setItemsSelected([id])
-    }
-  }
-
-  function selectItemIcon(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void {
-    if (itemsSelected.includes(id) === true) {
-      setItemsSelected(itemsSelected.filter((item: ItemId) => item !== id))
-    } else {
-      setItemsSelected([...itemsSelected, id])
-    }
-    e.stopPropagation()
-  }
-
-  function isSelected(): boolean {
-    return itemsSelected.includes(id)
-  }
 
   function changeFileViewerShow(): void {
     setShowFileViwer(!showFileViwer)
@@ -91,23 +64,144 @@ function File({ file }: FileProps): JSX.Element {
       })
   }
 
+  function handleSelectItem(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void {
+    selectItem(e, file)
+  }
+
+  function handleSelectItemIcon(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void {
+    selectItemIcon(e, file)
+  }
+
+  function handleIsSelected(): boolean {
+    return isSelected(file)
+  }
+
+  let fileImage = (
+    <img
+      className='dashboard_main__content__section__files__file__preview__img'
+      src='./imgs/plain-preview.png'
+      alt=''
+    />
+  )
+
+  let fileIcon = (
+    <div
+      onClick={handleSelectItemIcon}
+      className={`dashboard_main__content__section__files__file__header__icon ${
+        handleIsSelected() ? 'dashboard_main__content__section__files__file__header__icon--check' : ''
+      }`}
+    ></div>
+  )
+
+  if (file.type.startsWith('image')) {
+    fileImage = <img className='dashboard_main__content__section__files__file__preview__img' src={file.path} alt='' />
+
+    fileIcon = (
+      <div
+        onClick={handleSelectItemIcon}
+        className={`dashboard_main__content__section__files__file__header__icon dashboard_main__content__section__files__file__header__icon--image${
+          handleIsSelected()
+            ? 'dashboard_main__content__section__files__file__header__icon--check dashboard_main__content__section__files__file__header__icon--image--check'
+            : ''
+        }`}
+      ></div>
+    )
+  } else if (file.type.startsWith('video')) {
+    fileImage = (
+      <img
+        className='dashboard_main__content__section__files__file__preview__img'
+        src='./imgs/mp4-preview.png'
+        alt=''
+      />
+    )
+
+    fileIcon = (
+      <div
+        onClick={handleSelectItemIcon}
+        className={`dashboard_main__content__section__files__file__header__icon dashboard_main__content__section__files__file__header__icon--video${
+          handleIsSelected()
+            ? 'dashboard_main__content__section__files__file__header__icon--check dashboard_main__content__section__files__file__header__icon--video--check'
+            : ''
+        }`}
+      ></div>
+    )
+  } else if (file.type.startsWith('application/pdf')) {
+    fileImage = (
+      <img
+        className='dashboard_main__content__section__files__file__preview__img'
+        src='./imgs/pdf-preview.png'
+        alt=''
+      />
+    )
+
+    fileIcon = (
+      <div
+        onClick={handleSelectItemIcon}
+        className={`dashboard_main__content__section__files__file__header__icon dashboard_main__content__section__files__file__header__icon--pdf${
+          handleIsSelected()
+            ? 'dashboard_main__content__section__files__file__header__icon--check dashboard_main__content__section__files__file__header__icon--pdf--check'
+            : ''
+        }`}
+      ></div>
+    )
+  } else if (file.type.startsWith('audio')) {
+    fileImage = (
+      <img
+        className='dashboard_main__content__section__files__file__preview__img'
+        src='./imgs/ogg-preview.png'
+        alt=''
+      />
+    )
+
+    fileIcon = (
+      <div
+        onClick={handleSelectItemIcon}
+        className={`dashboard_main__content__section__files__file__header__icon dashboard_main__content__section__files__file__header__icon--audio${
+          handleIsSelected()
+            ? 'dashboard_main__content__section__files__file__header__icon--check dashboard_main__content__section__files__file__header__icon--audio--check'
+            : ''
+        }`}
+      ></div>
+    )
+  } else if (file.type.startsWith('application/x-zip')) {
+    fileImage = (
+      <img
+        className='dashboard_main__content__section__files__file__preview__img'
+        src='./imgs/zip-preview.png'
+        alt=''
+      />
+    )
+
+    fileIcon = (
+      <div
+        onClick={handleSelectItemIcon}
+        className={`dashboard_main__content__section__files__file__header__icon dashboard_main__content__section__files__file__header__icon--zip${
+          handleIsSelected()
+            ? 'dashboard_main__content__section__files__file__header__icon--check dashboard_main__content__section__files__file__header__icon--zip--check'
+            : ''
+        }`}
+      ></div>
+    )
+  }
+
   return (
     <>
       <article
-        onClick={selectItem}
+        onClick={handleSelectItem}
         onDoubleClick={changeFileViewerShow}
         className={`dashboard_main__content__section__files__file ${
-          isSelected() ? 'dashboard_main__content__section__files__file--check' : ''
+          handleIsSelected() ? 'dashboard_main__content__section__files__file--check' : ''
         }`}
       >
         <div className='dashboard_main__content__section__files__file__header'>
-          <div
-            onClick={selectItemIcon}
+          {fileIcon}
+          {/* <div
+            onClick={handleSelectItemIcon}
             className={`dashboard_main__content__section__files__file__header__icon ${
-              isSelected() ? 'dashboard_main__content__section__files__file__header__icon--check' : ''
+              handleIsSelected() ? 'dashboard_main__content__section__files__file__header__icon--check' : ''
             }`}
-          ></div>
-          <span className='dashboard_main__content__section__files__file__header__name'>{name}</span>
+          ></div> */}
+          <span className='dashboard_main__content__section__files__file__header__name'>{file.name}</span>
 
           <PopperMenu
             button={<OptionsButton />}
@@ -123,7 +217,8 @@ function File({ file }: FileProps): JSX.Element {
           />
         </div>
         <div className='dashboard_main__content__section__files__file__preview'>
-          {file.type.startsWith('image') ? (
+          {fileImage}
+          {/* {file.type.startsWith('image') ? (
             <img className='dashboard_main__content__section__files__file__preview__img' src={file.path} alt='' />
           ) : (
             <img
@@ -131,7 +226,7 @@ function File({ file }: FileProps): JSX.Element {
               src='./imgs/miniatura_archivo.png'
               alt=''
             />
-          )}
+          )} */}
         </div>
       </article>
 

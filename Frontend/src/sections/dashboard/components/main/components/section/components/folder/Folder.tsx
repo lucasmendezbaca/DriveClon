@@ -1,5 +1,4 @@
 import './Folder.css'
-import { type ItemId } from '../../../../../../../../modules/items/domain/ItemId'
 import { type Folder as FolderType } from '../../../../../../../../modules/folders/domain/Folder'
 import { useItems } from '../../../../context/ItemContext'
 import PopperMenu from '../../../../../PopperMenu/PopperMenu'
@@ -15,41 +14,13 @@ interface FolderProps {
 }
 
 function Folder({ folder }: FolderProps): JSX.Element {
-  const { itemsSelected, setItemsSelected } = useItems()
+  const { setItemsSelected, selectItem, selectItemIcon, isSelected } = useItems()
   const { repository, setCurrentFolder, handleNewChange } = useFolders()
   const { currentUser } = useAuth()
 
-  const { id, name } = folder
-
   function handleDoubleClick(): void {
-    console.log(id)
     setItemsSelected([])
     setCurrentFolder(folder)
-  }
-
-  function selectItem(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void {
-    if (e.ctrlKey) {
-      if (itemsSelected.includes(id) === true) {
-        setItemsSelected(itemsSelected.filter((item: ItemId) => item !== id))
-      } else {
-        setItemsSelected([...itemsSelected, id])
-      }
-    } else {
-      setItemsSelected([id])
-    }
-  }
-
-  function selectItemIcon(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void {
-    if (itemsSelected.includes(id) === true) {
-      setItemsSelected(itemsSelected.filter((item: ItemId) => item !== id))
-    } else {
-      setItemsSelected([...itemsSelected, id])
-    }
-    e.stopPropagation()
-  }
-
-  function isSelected(): boolean {
-    return itemsSelected.includes(id)
   }
 
   function downloadFolder(): void {
@@ -73,22 +44,34 @@ function Folder({ folder }: FolderProps): JSX.Element {
       })
   }
 
+  function handleSelectItem(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void {
+    selectItem(e, folder)
+  }
+
+  function handleSelectItemIcon(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void {
+    selectItemIcon(e, folder)
+  }
+
+  function handleIsSelected(): boolean {
+    return isSelected(folder)
+  }
+
   return (
     <>
       <article
-        onClick={selectItem}
+        onClick={handleSelectItem}
         onDoubleClick={handleDoubleClick}
         className={`dashboard_main__content__section__files__folder ${
-          isSelected() ? 'dashboard_main__content__section__files__folder--check' : ''
+          handleIsSelected() ? 'dashboard_main__content__section__files__folder--check' : ''
         }`}
       >
         <div
-          onClick={selectItemIcon}
+          onClick={handleSelectItemIcon}
           className={`dashboard_main__content__section__files__folder__icon ${
-            isSelected() ? 'dashboard_main__content__section__files__folder__icon--check' : ''
+            handleIsSelected() ? 'dashboard_main__content__section__files__folder__icon--check' : ''
           }`}
         ></div>
-        <span className='dashboard_main__content__section__files__folder__name'>{name}</span>
+        <span className='dashboard_main__content__section__files__folder__name'>{folder.name}</span>
         <PopperMenu
           button={<OptionsButton />}
           menu={

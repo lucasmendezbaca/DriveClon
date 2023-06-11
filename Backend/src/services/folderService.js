@@ -45,10 +45,20 @@ const deleteFolderByUserIdAndId = (userId, id) => {
   }
 }
 
+const deleteItemsByUserIdAndItems = (userId, items) => {
+  try {
+    return Folders.deleteItemsByUserIdAndItems(userId, items)
+  } catch (err) {
+    console.error('Error al eliminar las carpetas: ' + err.stack)
+    throw err
+  }
+}
+
 module.exports = {
   createRootFolder,
   createFolder,
   getFoldersByUserIdAndParentId,
   getFolderByUserIdAndId,
   deleteFolderByUserIdAndId,
+  deleteItemsByUserIdAndItems,
 }

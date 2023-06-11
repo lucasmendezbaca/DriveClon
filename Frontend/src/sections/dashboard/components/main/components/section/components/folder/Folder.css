@@ -5,17 +5,22 @@
     gap: 18px;
     box-sizing: border-box;
     background-color: #f2f6fc;
-    padding: 14px 14px;
+    padding: 12px 14px;
     border-radius: 12px;
     font-size: 14px;
 }
 
+.dashboard_main__content__list-section__item:hover,
 .dashboard_main__content__section__files__folder:hover {
     background-color: #e0e4e9;
 }
 
 .dashboard_main__content__section__files__folder__name {
     margin-right: auto;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .dashboard_main__content__section__files__folder__icon {
@@ -23,25 +28,26 @@
     min-height: 22px;
     background-image: url("./imgs/folder_icon.svg");
     cursor: pointer;
+    margin-left: 3%;
 }
 
+.dashboard_main__content__list-section__item--check,
+.dashboard_main__content__list-section__item--check:hover,
 .dashboard_main__content__section__files__folder--check:hover,
 .dashboard_main__content__section__files__folder--check {
     background-color: #c2e7ff;
 }
 
+.dashboard_main__content__list-section__item:hover .dashboard_main__content__section__files__folder__icon,
 .dashboard_main__content__section__files__folder:hover .dashboard_main__content__section__files__folder__icon {
     background-image: url("./imgs/item_icon_hover.svg");
 }
 
+.dashboard_main__content__list-section__item--check:hover .dashboard_main__content__section__files__folder__icon--check,
 .dashboard_main__content__section__files__folder--check:hover .dashboard_main__content__section__files__folder__icon--check {
     background-image: url("./imgs/item_icon_check.svg");
 }
 
 .dashboard_main__content__section__files__folder__icon--check {
     background-image: url("./imgs/item_icon_check.svg");
-}
-
-.dashboard_main__content__section__files__folder__icon_options {
-    margin-left: auto;
 }

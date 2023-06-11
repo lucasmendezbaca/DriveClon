@@ -1,0 +1,33 @@
+.dashboard_main__content__section__files__folder__icon_options {
+    margin-left: auto;
+    padding: 2px;
+}
+
+.dashboard_main__content__section__files__folder__icon_options:hover {
+    background-color: #d4d5d5;
+}
+
+.dashboard_main__content__section__files__folder__icon_options:focus {
+    background-color: #c2e7ff;
+}
+
+.dashboard_main__content__list-section__item--check .dashboard_main__content__section__files__folder__icon_options:hover,
+.dashboard_main__content__list-section__item--check:hover .dashboard_main__content__section__files__folder__icon_options:hover,
+.dashboard_main__content__section__files__folder--check:hover .dashboard_main__content__section__files__folder__icon_options:hover,
+.dashboard_main__content__section__files__folder--check .dashboard_main__content__section__files__folder__icon_options:hover,
+.dashboard_main__content__section__files__file--check:hover .dashboard_main__content__section__files__folder__icon_options:hover,
+.dashboard_main__content__section__files__file--check .dashboard_main__content__section__files__folder__icon_options:hover {
+    background-color: #bad6e8;
+}
+
+/* mediaquery en 769px */
+
+@media (max-width: 770px) {
+    .dashboard_main__content__section__files__folder__icon_options {
+        display: block;
+    }
+}
+
+
+
+

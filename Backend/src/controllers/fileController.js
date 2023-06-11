@@ -1,13 +1,13 @@
 const fileService = require('../services/fileService')
 const multer = require('multer')
 const fs = require('fs')
+const env = require('../env')
 
 const uploadFile = (request, response) => {
   const storage = multer.diskStorage({
     destination: (req, file, cb) => {
       const path = request.body.path
-      const pathWithoutHost = path.replace('https://driveclone.es/', '')
-      // const pathWithoutHost = path.replace('http://localhost:3000/', '')
+      const pathWithoutHost = path.replace(env.BASE_URL, '')
       cb(null, pathWithoutHost)
     },
     filename: (req, file, cb) => {
@@ -31,8 +31,7 @@ const uploadFile = (request, response) => {
 
 const downloadFile = (request, response) => {
   const { path, name } = request.body
-  const pathWithoutHost = path.replace('https://driveclone.es/', '')
-  // const pathWithoutHost = path.replace('http://localhost:3000/', '')
+  const pathWithoutHost = path.replace(env.BASE_URL, '')
 
   try {
     response.set('Content-Disposition', 'attachment')
@@ -113,6 +112,18 @@ const getFilesByUserIdAndTypeAndNameAndInterval = async (request, response) => {
   }
 }
 
+const getSumSizeByUserId = async (request, response) => {
+  const { userId } = request.params
+
+  try {
+    const sumSize = await fileService.getSumSizeByUserId(userId)
+    response.status(200).send(sumSize)
+  } catch (err) {
+    console.error(err)
+    response.status(500).send('Error al obtener la suma de los tamaños de los archivos controller')
+  }
+}
+
 const updateFileToHighlightedByUserIdAndId = (request, response) => {
   const { userId, id, highlighted } = request.params
 
@@ -132,8 +143,7 @@ const deleteFileByUserIdAndId = (request, response) => {
 
   try {
     fileService.deleteFileByUserIdAndId(userId, id)
-    const pathWithoutHost = path.replace('https://driveclone.es/', '')
-    // const pathWithoutHost = decodedPath.replace('http://localhost:3000/', '')
+    const pathWithoutHost = decodedPath.replace(env.BASE_URL, '')
     fs.unlinkSync(pathWithoutHost)
 
     response.status(200).send('Archivo eliminado correctamente')
@@ -151,6 +161,7 @@ module.exports = {
   getRecentFilesByUserIdAndIterval,
   getHighlightedFilesByUserId,
   getFilesByUserIdAndTypeAndNameAndInterval,
+  getSumSizeByUserId,
   updateFileToHighlightedByUserIdAndId,
   deleteFileByUserIdAndId,
 }

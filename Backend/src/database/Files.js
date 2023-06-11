@@ -53,10 +53,13 @@ const getHighlightedFilesByUserId = (userId) => {
 }
 
 const getFilesByUserIdAndTypeAndNameAndInterval = (userId, type, name, interval) => {
+  const paramType = type === '~~' ? '' : type
+  const paramName = name === '~~' ? '' : name
+
   return new Promise((resolve, reject) => {
     connection.query(
       'SELECT * FROM File WHERE userId = ? AND type LIKE ? AND name LIKE ? AND updateDate BETWEEN DATE_SUB(NOW(), INTERVAL ? DAY) AND NOW()',
-      [userId, `${type}%`, `%${name}%`, interval],
+      [userId, `${paramType}%`, `%${paramName}%`, interval],
       (err, rows) => {
         if (err) {
           reject(err)
@@ -64,6 +67,17 @@ const getFilesByUserIdAndTypeAndNameAndInterval = (userId, type, name, interval)
         resolve(rows)
       }
     )
+  })
+}
+
+const getSumSizeByUserId = (userId) => {
+  return new Promise((resolve, reject) => {
+    connection.query('SELECT SUM(size) AS sumSize FROM File WHERE userId = ?', [userId], (err, rows) => {
+      if (err) {
+        reject(err)
+      }
+      resolve(rows[0].sumSize)
+    })
   })
 }
 
@@ -99,6 +113,7 @@ module.exports = {
   getRecentFilesByUserIdAndIterval,
   getHighlightedFilesByUserId,
   getFilesByUserIdAndTypeAndNameAndInterval,
+  getSumSizeByUserId,
   updateFileToHighlightedByUserIdAndId,
   deleteFileByUserIdAndId,
 }

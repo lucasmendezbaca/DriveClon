@@ -57,6 +57,15 @@ const getFilesByUserIdAndTypeAndNameAndInterval = (userId, type, name, interval)
   }
 }
 
+const getSumSizeByUserId = (userId) => {
+  try {
+    return Files.getSumSizeByUserId(userId)
+  } catch (err) {
+    console.error(err)
+    throw new Error('Error al obtener la suma de los tamaños de los archivos service')
+  }
+}
+
 const updateFileToHighlightedByUserIdAndId = (userId, id, highlighted) => {
   try {
     return Files.updateFileToHighlightedByUserIdAndId(userId, id, highlighted)
@@ -81,6 +90,7 @@ module.exports = {
   getRecentFilesByUserIdAndIterval,
   getHighlightedFilesByUserId,
   getFilesByUserIdAndTypeAndNameAndInterval,
+  getSumSizeByUserId,
   updateFileToHighlightedByUserIdAndId,
   deleteFileByUserIdAndId,
 }

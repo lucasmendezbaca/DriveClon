@@ -1,0 +1,32 @@
+Api con node/express BBDD MongoDb
+Libreria de texto enrriquecido para la edición de archivos
+
+Hacer lo de updateUser tambien cuando se registra con otras plataformas (google, github) 
+
+Que los items tengan un campo de ownerUser (que tiene el id del usuario que ha creado el elemento)
+y otro de users (que tiene una lista con los usuarios que pueden acceder al archivo)
+
+
+Flujo de ejecución registro de usuario:
+    RegisterFomr.tsx
+        1- Registrar el usuario en firebase
+        2- Acutalizar la foto y el nombre de usuario
+        3- Insertar un registro en la api en el endpoint de usuarios con el UserId y el RootFolderId
+        4- Setear el currentUser al usuario final despues de hacer todos las modificaciones e inserciones
+
+Otra opcion:
+    Que la tabla de usuarios que consulta mi api tenga los campos:
+        id, name, image (como archivo binario), rootFolderId
+
+    Flujo de ejecución en ese caso (Registro de usuario):
+        1- Registrar el usuario en firebase, solo se guardará el id, email y se hará la gestión de contraseña
+        2- Con el id devuelto por el registro del usuario en firebase hacer un insert en la tabla users a la
+           que accede la api con los siguientes datos:
+           - id, name, image (como binario), rootFolderId
+        3- Si el insert se hace satisfactoriamente ya seteo el current user con todos los datos del usuario.
+
+    Login de usuario:
+        En el useEffect del AuthContext.tsx se hace una petición a la api con el id del usuario que viene
+        del onAuthStateChanged y con los datos que devuelve esa peticion y con los datos del usuario que ya tenia
+        crear un user y setearlo en la aplicación
+

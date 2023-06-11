@@ -1,4 +1,5 @@
 import { type Folder, type RootFolder } from '../domain/Folder'
+import { type File } from '../../files/domain/File'
 import { type FolderRepository } from '../domain/FolderRepository'
 import { type FolderId } from '../domain/FolderId'
 import { type UserId } from '../../users/domain/UserId'
@@ -14,6 +15,7 @@ export function createApiFolderRepository(): FolderRepository {
     downloadFolder,
     getFolderByUserIdAndId,
     deleteFolder,
+    deleteItemsByUserIdAndItems,
   }
 }
 
@@ -103,6 +105,20 @@ async function deleteFolder(userId: UserId, fileId: FolderId, path: FolderPath):
   try {
     await fetch(`${API_BASE_URL}folders/${userId}/${fileId}/${encodeURIComponent(path)}`, {
       method: 'DELETE',
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+async function deleteItemsByUserIdAndItems(userId: UserId, items: Array<Folder | File>): Promise<void> {
+  try {
+    await fetch(`${API_BASE_URL}folders/deleteitems/${userId}`, {
+      method: 'POST',
+      body: JSON.stringify(items),
+      headers: {
+        'Content-Type': 'application/json',
+      },
     })
   } catch (error) {
     console.log(error)

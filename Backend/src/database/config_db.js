@@ -1,18 +1,7 @@
 const mysql = require('mysql')
+const env = require('../env')
 
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 's281656_itemsUser',
-  password: 'itemsUser.password',
-  database: 's281656_items',
-})
-
-// const connection = mysql.createConnection({
-//   host: 'localhost',
-//   user: 'root',
-//   password: '',
-//   database: 'items',
-// })
+const connection = mysql.createConnection(env.CONECTION_OBJECT)
 
 connection.connect((err) => {
   if (err) {

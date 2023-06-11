@@ -4,11 +4,13 @@ import { useStateForm } from '../../../users/hooks/useStateForm'
 import RegisterForm from '../../../users/components/register_form/RegisterForm'
 import LoginForm from '../../../users/components/login_form/LoginFrom'
 import OverlayContainer from '../../../../components/overlay_container/OverlayContainer'
+import { useNavigate } from 'react-router-dom'
 
 function Menu(): JSX.Element {
   const registerForm = useStateForm()
   const loginForm = useStateForm()
   const hamburgerMenu = useStateForm()
+  const navigate = useNavigate()
 
   const [activeLink, setActiveLink] = useState('hero')
 
@@ -16,6 +18,9 @@ function Menu(): JSX.Element {
     setActiveLink(section)
   }
 
+  const handleLogoClick = (): any => {
+    navigate('/')
+  }
 
   return (
     <>
@@ -27,7 +32,7 @@ function Menu(): JSX.Element {
       >
         <nav className='hamburger-menu'>
           <div className='hamburger-menu__header'>
-            <a className='menu__logo'>
+            <a onClick={handleLogoClick} className='menu__logo'>
               <img src='./imgs/drive.svg' alt='' />
               <img className='logo__google_img' src='./imgs/Google.svg' alt='' />
               <span className='logo__drive'>Drive</span>
@@ -79,7 +84,7 @@ function Menu(): JSX.Element {
           alt=''
         />
 
-        <a className='menu__logo'>
+        <a onClick={handleLogoClick} className='menu__logo'>
           <img src='./imgs/drive.svg' alt='' />
           <img className='logo__google_img' src='./imgs/Google.svg' alt='' />
           <span className='logo__drive'>Drive</span>

@@ -9,6 +9,7 @@ import { type Folder } from '../../../../modules/folders/domain/Folder'
 import { useFolders } from '../../../Folders/contexts/FoldersContext'
 import { useFiles } from '../../../Files/contexts/FilesContext'
 import { useItems } from '../main/context/ItemContext'
+import { useNavigate } from 'react-router-dom'
 
 interface PropsCreateFolderForm {
   changeShow: () => void
@@ -20,6 +21,7 @@ function CreateFolderForm({ changeShow }: PropsCreateFolderForm): JSX.Element {
   const { repository, currentFolder, handleNewChange } = useFolders()
   const Files = useFiles()
   const Items = useItems()
+  const navigate = useNavigate()
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
     setFolderName(e.target.value)
@@ -50,6 +52,7 @@ function CreateFolderForm({ changeShow }: PropsCreateFolderForm): JSX.Element {
         Files.setShowRecentFiles(false)
         Files.setShowHighlightedFiles(false)
         Items.setShowFilterItems(false)
+        navigate('/dashboard')
         changeShow()
       })
       .catch((err) => {

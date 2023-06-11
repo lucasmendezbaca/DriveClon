@@ -1,4 +1,4 @@
-import { useAuth } from '../../../users/contexts/AuthContext'
+import { useFolders } from '../../../Folders/contexts/FoldersContext'
 
 interface OptionsItemMenuProps {
   item: any
@@ -9,7 +9,7 @@ interface OptionsItemMenuProps {
 }
 
 function OptionsItemMenu({ item, open, download, deleteItem, updateHighlighted }: OptionsItemMenuProps): JSX.Element {
-  const { currentUser } = useAuth()
+  const { currentFolder } = useFolders()
 
   function handleOpen(): void {
     open()
@@ -31,7 +31,7 @@ function OptionsItemMenu({ item, open, download, deleteItem, updateHighlighted }
 
   return (
     <div className='new_item_menu'>
-      {item.id !== currentUser.id && (
+      {item.id !== currentFolder.id && (
         <div className='new_item_menu__option'>
           <div onClick={handleOpen} className='new_item_menu__option__item'>
             <img src='./imgs/folder_icon.svg' alt='' />

@@ -19,6 +19,7 @@ function NewItemMenu({ changeShow }: NewItemMenuProps): JSX.Element {
 
   function handleChange(event: any): void {
     const file = event.target.files[0]
+    console.log(file)
 
     const id = uuidv4()
     const path = `${currentFolder.path}`
@@ -33,7 +34,7 @@ function NewItemMenu({ changeShow }: NewItemMenuProps): JSX.Element {
           id,
           parentId: currentFolder.id,
           userId: currentUser.id,
-          name: data.originalname,
+          name: file.name,
           path: `${currentFolder.path}${id}.${extension}`,
           highlighted: 0,
           type: data.mimetype,

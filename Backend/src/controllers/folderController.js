@@ -1,6 +1,7 @@
 const folderService = require('../services/folderService')
 const fs = require('fs')
 const archiver = require('archiver')
+const env = require('../env')
 
 const createRootFolder = async (req, res) => {
   console.log(req.body)
@@ -36,8 +37,7 @@ const createFolder = async (req, res) => {
       updateDate
     )
 
-    // const pathWithoutHost = path.replace('http://localhost:3000/', '')
-    const pathWithoutHost = path.replace('https://driveclone.es/', '')
+    const pathWithoutHost = path.replace(env.BASE_URL, '')
     try {
       fs.mkdirSync(pathWithoutHost)
       console.log('Carpeta creada correctamente.')
@@ -54,8 +54,7 @@ const createFolder = async (req, res) => {
 
 const downloadFolder = (request, response) => {
   const { path, name } = request.body
-  // const pathWithoutHost = path.replace('http://localhost:3000/', '')
-  const pathWithoutHost = path.replace('https://driveclone.es/', '')
+  const pathWithoutHost = path.replace(env.BASE_URL, '')
 
   try {
     const zipFileName = `${name}.zip`
@@ -116,14 +115,42 @@ const deleteFolderByUserIdAndId = async (req, res) => {
   try {
     const result = await folderService.deleteFolderByUserIdAndId(userId, id)
     try {
-      // const pathWithoutHost = decodedPath.replace('http://localhost:3000/', '')
-      const pathWithoutHost = decodedPath.replace('https://driveclone.es/', '')
-      fs.rmdirSync(pathWithoutHost)
+      const pathWithoutHost = decodedPath.replace(env.BASE_URL, '')
+      // fs.rmdirSync(pathWithoutHost)
+      fs.rmdirSync(pathWithoutHost, { recursive: true })
       console.log('Carpeta eliminada correctamente.')
     } catch (err) {
       console.log('Error al eliminar la carpeta.')
       console.error(err)
     }
+    res.status(200).send(result)
+  } catch (err) {
+    res.status(500).send({ error: err.message })
+  }
+}
+
+const deleteItemsByUserIdAndItems = async (req, res) => {
+  const { userId } = req.params
+  const items = req.body
+
+  console.log(userId)
+  console.log(items)
+
+  try {
+    const result = await folderService.deleteItemsByUserIdAndItems(userId, items)
+
+    for (const item of items) {
+      const { path } = item
+
+      const pathWithoutHost = path.replace(env.BASE_URL, '')
+      const stats = fs.statSync(pathWithoutHost)
+      if (stats.isFile()) {
+        fs.unlinkSync(pathWithoutHost)
+      } else if (stats.isDirectory()) {
+        fs.rmdirSync(pathWithoutHost, { recursive: true })
+      }
+    }
+
     res.status(200).send(result)
   } catch (err) {
     res.status(500).send({ error: err.message })
@@ -137,4 +164,5 @@ module.exports = {
   downloadFolder,
   getFolderByUserIdAndId,
   deleteFolderByUserIdAndId,
+  deleteItemsByUserIdAndItems,
 }

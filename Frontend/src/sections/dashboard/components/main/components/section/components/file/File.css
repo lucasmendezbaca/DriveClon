@@ -2,7 +2,7 @@
     box-sizing: border-box;
     min-height: 200px;
     background-color: #f2f6fc;
-    padding: 14px 8px;
+    padding: 8px 8px;
     border-radius: 12px;
 }
 
@@ -15,23 +15,77 @@
     align-items: center;
     justify-content: space-between;
     gap: 18px;
-    margin-left: 14px;
+    margin-left: 4px;
     margin-bottom: 14px;
     margin-top: 8px;
 }
 
 .dashboard_main__content__section__files__file__header__icon {
-    min-width: 22px;
-    min-height: 22px;
-    background-image: url("./imgs/file_icon.png");
+    min-width: 20px;
+    min-height: 20px;
+    background-image: url("./imgs/plain-icon.png");
     background-repeat: no-repeat;
     background-position: center;
     cursor: pointer;
+    margin-left: 3%;
+    background-size: contain;
+}
+
+.dashboard_main__content__list-section__item:hover .dashboard_main__content__section__files__file__header__icon,
+.dashboard_main__content__list-section__item--check .dashboard_main__content__section__files__file__header__icon,
+
+.dashboard_main__content__section__files__file:hover .dashboard_main__content__section__files__file__header__icon,
+.dashboard_main__content__section__files__file--check .dashboard_main__content__section__files__file__header__icon {
+    min-width: 24px;
+    min-height: 24px;
+}
+
+.dashboard_main__content__list-section__item:hover .dashboard_main__content__section__files__file__header__name,
+.dashboard_main__content__list-section__item--check .dashboard_main__content__section__files__file__header__name,
+
+.dashboard_main__content__section__files__file:hover .dashboard_main__content__section__files__file__header__name,
+.dashboard_main__content__section__files__file--check .dashboard_main__content__section__files__file__header__name {
+    margin-left: -2px;
+}
+
+
+.dashboard_main__content__list-section__item:hover .dashboard_main__content__section__files__file__header__icon,
+.dashboard_main__content__list-section__item--check .dashboard_main__content__section__files__file__header__icon,
+
+.dashboard_main__content__section__files__file:hover .dashboard_main__content__section__files__file__header__icon,
+.dashboard_main__content__section__files__file--check .dashboard_main__content__section__files__file__header__icon {
+    margin-left: calc(3% - 2px);
+}
+
+
+
+.dashboard_main__content__section__files__file__header__icon--pdf {
+    background-image: url("./imgs/pdf-icon.png");
+}
+
+.dashboard_main__content__section__files__file__header__icon--video {
+    background-image: url("./imgs/mp4-icon.png");
+}
+
+.dashboard_main__content__section__files__file__header__icon--audio {
+    background-image: url("./imgs/ogg-icon.png");
+}
+
+.dashboard_main__content__section__files__file__header__icon--image {
+    background-image: url("./imgs/image-icon.png");
+}
+
+.dashboard_main__content__section__files__file__header__icon--zip {
+    background-image: url("./imgs/zip-icon.png");
 }
 
 .dashboard_main__content__section__files__file__header__name {
     font-size: 14px;
     margin-right: auto;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .dashboard_main__content__section__files__file__last_edition {
@@ -41,18 +95,44 @@
     margin-left: 12px;
 }
 
-.dashboard_main__content__section__files__file__preview__img {
-    max-width: 100%;
+.dashboard_main__content__section__files__file__preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 130px;
+    background-color: white;
 }
 
+.dashboard_main__content__section__files__file__preview__img {
+    max-width: 100px;
+}
+
+.dashboard_main__content__list-section__item:hover .dashboard_main__content__section__files__file__header__icon,
 .dashboard_main__content__section__files__file:hover .dashboard_main__content__section__files__file__header__icon {
     background-image: url("./imgs/item_icon_hover.svg");
 }
 
+.dashboard_main__content__list-section__item--check:hover .dashboard_main__content__section__files__file__header__icon--zip--check,
+.dashboard_main__content__list-section__item--check:hover .dashboard_main__content__section__files__file__header__icon--image--check,
+.dashboard_main__content__list-section__item--check:hover .dashboard_main__content__section__files__file__header__icon--audio--check,
+.dashboard_main__content__list-section__item--check:hover .dashboard_main__content__section__files__file__header__icon--video--check,
+.dashboard_main__content__list-section__item--check:hover .dashboard_main__content__section__files__file__header__icon--pdf--check,
+
+.dashboard_main__content__section__files__file--check:hover .dashboard_main__content__section__files__file__header__icon--zip--check,
+.dashboard_main__content__section__files__file--check:hover .dashboard_main__content__section__files__file__header__icon--image--check,
+.dashboard_main__content__section__files__file--check:hover .dashboard_main__content__section__files__file__header__icon--audio--check,
+.dashboard_main__content__section__files__file--check:hover .dashboard_main__content__section__files__file__header__icon--video--check,
+.dashboard_main__content__section__files__file--check:hover .dashboard_main__content__section__files__file__header__icon--pdf--check,
+.dashboard_main__content__list-section__item--check:hover .dashboard_main__content__section__files__file__header__icon--check,
 .dashboard_main__content__section__files__file--check:hover .dashboard_main__content__section__files__file__header__icon--check {
     background-image: url("./imgs/item_icon_check.svg");
 }
 
+.dashboard_main__content__section__files__file__header__icon--zip--check,
+.dashboard_main__content__section__files__file__header__icon--image--check,
+.dashboard_main__content__section__files__file__header__icon--audio--check,
+.dashboard_main__content__section__files__file__header__icon--video--check,
+.dashboard_main__content__section__files__file__header__icon--pdf--check,
 .dashboard_main__content__section__files__file__header__icon--check {
     background-image: url("./imgs/item_icon_check.svg");
 }

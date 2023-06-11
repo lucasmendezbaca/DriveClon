@@ -3,7 +3,6 @@ import { useItems } from '../../context/ItemContext'
 import PopperMenu from '../../../PopperMenu/PopperMenu'
 import NewItemMenu from '../../../new_item_menu/NewItemMenu'
 import OptionsItemMenu from '../../../options_item_menu/OptionsItemMenu'
-import OptionsButton from '../options_button/options_button'
 import { useFolders } from '../../../../../Folders/contexts/FoldersContext'
 import OverlayContainer from '../../../../../../components/overlay_container/OverlayContainer'
 import CreateFolderForm from '../../../create_folder_form/CreateFolderForm'
@@ -12,6 +11,7 @@ import { downloadFolder as downloadFolderAplication } from '../../../../../../mo
 import { deleteFolder as deleteFolderAplication } from '../../../../../../modules/folders/aplication/deleteFolder'
 import { useAuth } from '../../../../../users/contexts/AuthContext'
 import { useState } from 'react'
+import { deleteItemsByUserIdAndItems } from '../../../../../../modules/folders/aplication/deleteItemsByUserIdAndItems'
 
 interface MenuProps {
   listDesign: boolean
@@ -19,8 +19,8 @@ interface MenuProps {
 }
 
 function Menu({ listDesign, changeListDesign }: MenuProps): JSX.Element {
-  const { itemsSelected } = useItems()
-  const { repository, currentFolder, setCurrentFolder, parentFolder } = useFolders()
+  const { itemsSelected, setItemsSelected } = useItems()
+  const { repository, currentFolder, setCurrentFolder, parentFolder, handleNewChange } = useFolders()
   const { currentUser } = useAuth()
   const [error, setError] = useState('')
 
@@ -30,9 +30,34 @@ function Menu({ listDesign, changeListDesign }: MenuProps): JSX.Element {
     setCurrentFolder(parentFolder[0])
   }
 
+  function handleRemoveSelectedItems(): void {
+    setItemsSelected([])
+  }
+
+  // const responsiveOptionsButton = (
+  //   <img
+  //     className='dashboard_main__menu__options__icon dashboard_main__menu__options__icon--responsive'
+  //     src='./imgs/file_options_icon.svg'
+  //     alt=''
+  //   />
+  // )
+
+  function handleDeleteItems(): void {
+    deleteItemsByUserIdAndItems(repository, currentUser.id, itemsSelected)
+      .then((response) => {
+        console.log(response)
+        setItemsSelected([])
+        handleNewChange()
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
   const optionsButton = (
     <img
-      className='dashboard_main__menu__options__icon dashboard_main__menu__options__icon--responsive'
+      title='Opciones de la carpeta'
+      className='dashboard_main__menu__options__icon dashboard_main__menu__options__icon--normal'
       src='./imgs/file_options_icon.svg'
       alt=''
     />
@@ -48,8 +73,9 @@ function Menu({ listDesign, changeListDesign }: MenuProps): JSX.Element {
   const backIcon =
     parentFolder.length > 0 ? (
       <img
+        title='Volver a la carpeta anterior'
         onClick={handleChangeCurrentFolder}
-        className='dashboard_main__menu__back-icon'
+        className='dashboard_main__menu__options__icon dashboard_main__menu__back-icon'
         src='./imgs/arrow-back.svg'
         alt=''
       />
@@ -60,14 +86,32 @@ function Menu({ listDesign, changeListDesign }: MenuProps): JSX.Element {
   const title =
     itemsSelected.length > 0 ? (
       <div className='dashboard_main__menu__title--selected'>
-        <div>{itemsSelected.length} seleccionados</div>
+        <div className='dashboard_main__menu__title--selected__close-icon__counter'>
+          <img
+            onClick={handleRemoveSelectedItems}
+            className='dashboard_main__menu__options__icon dashboard_main__menu__options__icon--normal dashboard_main__menu__title--selected__close-icon'
+            src='./imgs/cerrar.svg'
+            alt='icono en forma de cruz para eliminar la selección de elementos'
+          />
+          {itemsSelected.length} seleccionados
+        </div>
         <div className='dashboard_main__menu__opitions_items_selected'>
-          <img className='dashboard_main__menu__options__icon' src='./imgs/compartir.svg' alt='' />
-          <img className='dashboard_main__menu__options__icon' src='./imgs/download.svg' alt='' />
-          <img className='dashboard_main__menu__options__icon' src='./imgs/mover_a.svg' alt='' />
-          <img className='dashboard_main__menu__options__icon' src='./imgs/papelera.svg' alt='' />
+          {/* <img className='dashboard_main__menu__options__icon' src='./imgs/compartir.svg' alt='' /> */}
+          {/* <img
+            className='dashboard_main__menu__options__icon'
+            src='./imgs/download.svg'
+            alt='icono que simboliza la descarga de un elemento'
+          /> */}
+          {/* <img className='dashboard_main__menu__options__icon' src='./imgs/mover_a.svg' alt='' /> */}
+          <img
+            title='Eliminar elementos seleccionados'
+            onClick={handleDeleteItems}
+            className='dashboard_main__menu__options__icon'
+            src='./imgs/papelera.svg'
+            alt='icono de una papelera'
+          />
 
-          {optionsButton}
+          {/* {responsiveOptionsButton} */}
         </div>
       </div>
     ) : (
@@ -111,13 +155,14 @@ function Menu({ listDesign, changeListDesign }: MenuProps): JSX.Element {
         {title}
         <div className='dashboard_main__menu__options'>
           <img
+            title='Cambiar diseño'
             onClick={changeListDesign}
             className='dashboard_main__menu__options__icon dashboard_main__menu__options__icon--view'
             src={changeViewIcon}
             alt=''
           />
           <PopperMenu
-            button={<OptionsButton />}
+            button={optionsButton}
             menu={
               <OptionsItemMenu
                 item={currentFolder}

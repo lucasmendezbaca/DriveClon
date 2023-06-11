@@ -141,9 +141,12 @@ async function getFilesByUserIdAndTypeAndNameAndInterval(
   name: string,
   interval: number
 ): Promise<FileType[] | undefined> {
+  const paramType = type === '' ? '~~' : type
+  const paramName = name === '' ? '~~' : name
+
   try {
     const response = await fetch(
-      `${API_BASE_URL}files/${userId}/${encodeURIComponent(type)}/${encodeURIComponent(name)}/${interval}`,
+      `${API_BASE_URL}files/${userId}/${encodeURIComponent(paramType)}/${encodeURIComponent(paramName)}/${interval}`,
       {
         method: 'GET',
       }

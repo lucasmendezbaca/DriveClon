@@ -1,21 +1,43 @@
 import './UserInfo.css'
 import { useAuth } from '../../../users/contexts/AuthContext'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import UserImage from '../../../dashboard/components/user_image/UserImage'
 import { updateUserName } from '../../../../modules/users/application/updateUserName'
 import SubmitButton from '../../../../components/submit_button/SubmitButton'
+import { isUserNameValid, NAME_MIN_LENGTH, NAME_MAX_LENGTH } from '../../../../modules/users/domain/UserName'
 
 function UserInfo(): JSX.Element {
   const { repository, currentUser, setCurrentUser } = useAuth()
   const [name, setName] = useState('')
   const [updateLoading, setUpdateLoading] = useState(false)
 
+  const [nameError, setNameError] = useState('')
+
+  useEffect(() => {
+    if (name !== '') {
+      if (!isUserNameValid(name)) {
+        setNameError(`El nombre debe tener entre ${NAME_MIN_LENGTH} y ${NAME_MAX_LENGTH} caracteres`)
+      } else {
+        setNameError('')
+      }
+    } else {
+      setNameError('')
+    }
+  }, [name])
+
   function handleNameChange(event: any): void {
     setName(event.target.value)
   }
 
-  function handleUpdateUser(): void {
+  function handleUpdateUser(e: any): void {
+    e.preventDefault()
     setUpdateLoading(true)
+
+    if (nameError !== '' || name === '') {
+      setNameError(`El nombre debe tener entre ${NAME_MIN_LENGTH} y ${NAME_MAX_LENGTH} caracteres`)
+      setUpdateLoading(false)
+      return
+    }
 
     updateUserName(repository, name)
       .then(() => {
@@ -23,7 +45,7 @@ function UserInfo(): JSX.Element {
 
         setCurrentUser({
           ...currentUser,
-          name: name,
+          name,
         })
 
         setUpdateLoading(false)
@@ -50,14 +72,17 @@ function UserInfo(): JSX.Element {
           </div>
           <div className='account-info__sections__section'>
             <span className='account-info__sections__section__firs-item'>Nombre</span>
-            <input
-              onChange={handleNameChange}
-              className='account-info__sections__section__second-item account-info__sections__section__input'
-              type='text'
-              name='password'
-              id=''
-              placeholder={currentUser.name}
-            />
+            <form onSubmit={handleUpdateUser} className='account-info__sections__section__second-item'>
+              <input
+                onChange={handleNameChange}
+                className='account-info__sections__section__second-item account-info__sections__section__input'
+                type='text'
+                name='password'
+                id=''
+                placeholder={currentUser.name}
+              />
+            </form>
+            {nameError !== '' && <p className='user_form__error'>{nameError}</p>}
           </div>
           <div className='account-info__sections__section'>
             <span className='account-info__sections__section__firs-item'>Email</span>
@@ -65,7 +90,9 @@ function UserInfo(): JSX.Element {
           </div>
         </div>
         <SubmitButton
-          onClick={handleUpdateUser}
+          onClick={() => {
+            handleUpdateUser(event)
+          }}
           loading={updateLoading}
           textDefault='Actualizar perfil'
           textLoading='Actualizando ...'

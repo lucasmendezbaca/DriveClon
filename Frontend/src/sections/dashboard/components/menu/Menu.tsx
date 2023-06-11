@@ -7,14 +7,10 @@ import { useAuth } from '../../../users/contexts/AuthContext'
 import { useStateForm } from '../../../users/hooks/useStateForm'
 import OverlayContainer from '../../../../components/overlay_container/OverlayContainer'
 import MovileMenu from '../movile_menu/MovileMenu'
-// import { useFiles } from '../../../Files/contexts/FilesContext'
-import { useItems } from '../main/context/ItemContext'
 
 function Menu(): JSX.Element {
   const { currentUser } = useAuth()
   const { showUserForm, handleShowUserForm } = useStateForm()
-  // const { setShowRecentFiles, setShowHighlightedFiles } = useFiles()
-  const { setShowFilterItems } = useItems()
 
   const userImage = (
     <div className='user-image'>
@@ -22,13 +18,14 @@ function Menu(): JSX.Element {
     </div>
   )
 
-  const filterIcon = <img className='search_file__icon search_file__icon--filter' src='./imgs/filter_icon.svg' alt='' />
-
-  function handleLogoClick(): void {
-    // setShowRecentFiles(false)
-    // setShowHighlightedFiles(false)
-    setShowFilterItems(false)
-  }
+  const filterIcon = (
+    <img
+      title='Menu de filtros'
+      className='search_file__icon search_file__icon--filter'
+      src='./imgs/filter_icon.svg'
+      alt=''
+    />
+  )
 
   return (
     <>
@@ -44,7 +41,7 @@ function Menu(): JSX.Element {
           alt=''
         />
 
-        <Link onClick={handleLogoClick} to={'/dashboard'} className='dashboard_menu__logo'>
+        <Link to={'/dashboard'} className='dashboard_menu__logo'>
           <img src='./imgs/drive.svg' alt='' />
           <span className='logo__drive'>Drive</span>
         </Link>
