@@ -1,0 +1,48 @@
+.login-platforms {
+    margin-bottom: 20px;
+    padding: 0px 48px;
+}
+
+.login-platforms__text {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login-platforms__buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.login-platforms__buttons__button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #3f7ee8;
+    width: fit-content;
+    padding: 2px;
+    padding-right: 10px;
+    color: white;
+    box-shadow: 0 1px 2px 0 rgba(60,64,67,.3),0 1px 3px 1px rgba(60,64,67,.15);
+    border-radius: 4px;
+    border: none;
+}
+
+.login-platforms__buttons__button--github {
+    background-color: #24292e;
+}
+
+.login-platforms__buttons__button__img-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 4px;
+}
+
+@media (max-width: 500px) {
+    .login-platforms {
+        padding: 0px 12px;
+    }
+}

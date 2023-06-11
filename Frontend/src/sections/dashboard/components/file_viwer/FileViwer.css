@@ -1,0 +1,18 @@
+/* .file-viwer {
+    background-color: rgba(0, 0, 0, 0.5);
+} */
+
+/* .file-viwer__info {
+    color: white;
+    position: absolute;
+} */
+
+.file-viwer__object {
+    min-width: 84vw;
+    min-height: 84vh;
+}
+
+.file-viwer__object--image {
+    max-width: 84vw;
+    max-height: 84vh;
+}

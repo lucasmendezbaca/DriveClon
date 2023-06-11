@@ -1,0 +1,33 @@
+CREATE DATABASE items;
+use items;
+
+CREATE TABLE Folder
+(
+    id VARCHAR(36) NOT NULL PRIMARY KEY,
+    parentId VARCHAR(36),
+    userId VARCHAR(28) NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    path VARCHAR(1000) NOT NULL,
+    highlighted BOOLEAN NOT NULL DEFAULT FALSE,
+    updateDate DATETIME NOT NULL,
+    createDate DATETIME NOT NULL,
+
+    FOREIGN KEY (parentId) REFERENCES Folder(id) ON DELETE CASCADE
+);
+
+CREATE TABLE File
+(
+    id VARCHAR(36) NOT NULL PRIMARY KEY,
+    parentId VARCHAR(36),
+    userId VARCHAR(28) NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    path VARCHAR(1000) NOT NULL,
+    highlighted BOOLEAN NOT NULL DEFAULT FALSE,
+    type VARCHAR(100) NOT NULL,
+    size INT NOT NULL,
+    quillData LONGTEXT,
+    updateDate DATETIME NOT NULL,
+    createDate DATETIME NOT NULL,
+
+    FOREIGN KEY (parentId) REFERENCES Folder(id) ON DELETE CASCADE
+);

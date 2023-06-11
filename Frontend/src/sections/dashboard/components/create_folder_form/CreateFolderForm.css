@@ -1,0 +1,46 @@
+.create-folder-form {
+    padding: 24px;
+}
+
+.create-folder-form__title {
+    font-size: 24px;
+    margin-top: 0;
+}
+
+.user_form__section__input--folder-form {
+    height: 38px;
+    width: 300px;
+}
+
+.user_form__section__input--folder-form:focus {
+    outline: 2px solid #0B57D0;
+}
+
+.create-folder-form__form__buttons {
+    display: flex;
+    justify-content: end;
+    margin-top: 20px;
+    gap: 12px;
+}
+
+.create-folder-form__form__buttons__btton {
+    background-color: white;
+    border: none;
+    color: #0B57D0;
+    padding: 8px 8px;
+    border-radius: 16px;
+}
+
+.create-folder-form__form__buttons__btton--submit {
+    order: 2;
+}
+
+.create-folder-form__form__buttons__btton:hover {
+    background-color: #b4c8ea32;
+}
+
+@media (max-width: 380px) {
+    .user_form__section__input--folder-form {
+        width: 100%;
+    }
+}

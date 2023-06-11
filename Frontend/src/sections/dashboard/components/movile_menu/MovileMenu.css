@@ -1,0 +1,24 @@
+@media (max-width: 680px) {
+    .search_file {
+        display: none;
+    }
+
+    .dashboard_menu__logo {
+        min-width: fit-content;
+    }
+
+    .hamburger-menu-icon--dashboard {
+        display: block;
+        padding-left: 0;
+    }
+
+    .menu__logo--dashboard {
+        width: fit-content;
+        padding: 0 8px;
+    }
+
+    .dashboard_aside__sections--dashboard {
+        margin: 10px;
+        padding-top: 16px;
+    }
+}

@@ -1,0 +1,63 @@
+.dashboard_main__content__section__files__file {
+    box-sizing: border-box;
+    min-height: 200px;
+    background-color: #f2f6fc;
+    padding: 14px 8px;
+    border-radius: 12px;
+}
+
+.dashboard_main__content__section__files__file:hover {
+    background-color: #e0e4e9;
+}
+
+.dashboard_main__content__section__files__file__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    margin-left: 14px;
+    margin-bottom: 14px;
+    margin-top: 8px;
+}
+
+.dashboard_main__content__section__files__file__header__icon {
+    min-width: 22px;
+    min-height: 22px;
+    background-image: url("./imgs/file_icon.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+.dashboard_main__content__section__files__file__header__name {
+    font-size: 14px;
+    margin-right: auto;
+}
+
+.dashboard_main__content__section__files__file__last_edition {
+    font-size: 12px;
+    color: #8c8c8c;
+    margin-bottom: 0px;
+    margin-left: 12px;
+}
+
+.dashboard_main__content__section__files__file__preview__img {
+    max-width: 100%;
+}
+
+.dashboard_main__content__section__files__file:hover .dashboard_main__content__section__files__file__header__icon {
+    background-image: url("./imgs/item_icon_hover.svg");
+}
+
+.dashboard_main__content__section__files__file--check:hover .dashboard_main__content__section__files__file__header__icon--check {
+    background-image: url("./imgs/item_icon_check.svg");
+}
+
+.dashboard_main__content__section__files__file__header__icon--check {
+    background-image: url("./imgs/item_icon_check.svg");
+}
+
+.dashboard_main__content__section__files__file--check:hover,
+.dashboard_main__content__section__files__file--check {
+    background-color: #c2e7ff;
+}

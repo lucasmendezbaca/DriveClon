@@ -1,0 +1,9 @@
+.landing-page-main {
+    padding: 0px 32px;
+}
+
+@media (max-width: 599px) {
+    .landing-page-main {
+        padding: 0px 20px;
+    }
+}

@@ -1,0 +1,26 @@
+.dashboard_aside__sections__section {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    padding: 6px 12px;
+    font-size: 14px;
+    margin-bottom: 0px;
+    border-radius: 16px;
+}
+
+.dashboard_aside__sections__section:hover {
+    background-color: #e5e7e9;
+    cursor: pointer;
+}
+
+.dashboard_aside__sections__section--active {
+    background-color: #c2e7ff;
+}
+
+.dashboard_aside__sections__section--active:hover {
+    background-color: #c2e7ff;
+}
+
+.dashboard_aside__sections__section__icon {
+    max-width: 22px;
+}

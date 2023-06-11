@@ -1,0 +1,91 @@
+.dashboard_menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 62px;
+    padding: 4px 20px;
+    background-color: #f7f9fc;
+}
+
+.dashboard_menu__logo {
+    display: flex;
+    align-items: center;
+    min-width: 220px;
+}
+
+.logo__drive {
+    font-size: 22px;
+    margin-left: 6px;
+    color: #444746;
+}
+
+.search_file {
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding: 0px 16px;
+    max-width: 722px;
+    height: 48px;
+    margin-left: 10px;
+    border-radius: 22px;
+    border: none;
+    background-color: #edf2fc;
+    margin-right: auto;
+}
+
+.search_file__input {
+    width: 85%;
+    height: 80%;
+    margin-left: 10px;
+    border: none;
+    background-color: inherit;
+}
+
+.search_file__input:focus {
+    outline: none;
+}
+
+.search_file__icon {
+    max-width: 24px;
+    padding: 8px;
+    border-radius: 50%;
+}
+
+.search_file__icon:hover {
+    background-color: #dee4ed;
+}
+
+.search_file__icon--filter {
+    margin-left: auto;
+}
+
+.user-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 4px;
+    width: 32px;
+    height: 32px;
+    margin-left: 20px;
+}
+
+.user-image img {
+    max-width: 100%;
+}
+
+.hamburger-menu-icon--dashboard {
+    display: none;
+}
+
+@media (max-width: 680px) {
+    .dashboard_menu__logo {
+        margin-right: auto;
+    }
+
+    .search_file {
+        display: none;
+    }
+}

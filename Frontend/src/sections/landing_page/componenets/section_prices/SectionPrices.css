@@ -1,0 +1,126 @@
+.prices {
+    padding: 64px 0px;
+}
+
+.prices__title {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.prices__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(264px,1fr));
+    gap: 28px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.prices__card {
+    box-sizing: border-box;
+    height: 678px;
+    box-shadow: 0 1px 6px rgba(60,64,67,.3);
+    border-radius: 8px;
+    padding: 8px;
+    color: #3c4043;
+    position: relative;
+    z-index: 1;
+}
+
+.prices__card__recomended::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    border-radius: 8px;
+    background: linear-gradient(90deg,rgb(52,168,83) 4%,rgb(66,133,244) 0) top/100% 34% no-repeat,linear-gradient(90deg,rgb(251,188,4) 50%,rgb(66,133,244) 0) top/100% 82% no-repeat,linear-gradient(90deg,rgb(251,188,4) 10%,rgb(234,67,53) 0) top/100% 100%;
+    z-index: -1;
+}
+
+.prices__card__recomended::after {
+    content: "";
+    display: block;
+    width: 98%;
+    height: 98%;
+    position: absolute;
+    top: 1%;
+    left: 1%;
+    border-radius: 8px;
+    background-color: white;
+    z-index: -1;
+}
+
+.prices__card__header {
+    height: 320px;
+    text-align: center;
+    border-bottom: 1px solid #dadce0;
+}
+
+.prices__card__title {
+    font-size: 20px;
+    font-weight: 400;
+    padding-top: 40px;
+    margin-bottom: 14px;
+}
+
+.prices__card__storage {
+    font-size: 32px;
+    font-weight: 400;
+    margin-top: 0px;
+    margin-bottom: 28px;
+}
+
+.prices__card__price {
+    font-size: 20px;
+    font-weight: 400;
+    margin-top: 0px;
+}
+
+.prices__card__button {
+    margin-top: 24px;
+    margin-bottom: 24px;
+    width: 50%;
+    height: 34px;
+    border-radius: 4px;
+    background-color: #1a73e8;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+}
+
+.prices__card__button:hover {
+    box-shadow: 0 1px 2px 0 rgba(60,64,67,.3),0 1px 3px 1px rgba(60,64,67,.15);
+    background-color: #185abc;
+    transition: all 0.2s ease-in-out;
+}
+
+.prices__card__button--current-plan {
+    background-color: #fff;
+    color: #b5b6b7;
+    border: 1px solid #b5b6b7;
+}
+
+.prices__card__button--current-plan:hover {
+    box-shadow: none;
+    background-color: #fff;
+    color: #b5b6b7;
+    border: 1px solid #b5b6b7;
+}
+
+.prices__card__specifications {
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+.prices__card__specifications__title {
+    margin-bottom: 0px;
+}
+
+.prices__card__specifications__item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}

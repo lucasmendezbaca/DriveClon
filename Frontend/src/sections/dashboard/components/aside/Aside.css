@@ -1,0 +1,15 @@
+.dashboard_aside {
+    min-width: 214px;
+    padding: 0px 18px;
+    margin-top: 10px;
+}
+
+.dashboard_aside__sections {
+    margin-top: 16px;
+}
+
+@media (max-width: 680px) {
+    .dashboard_aside {
+        display: none;
+    }
+}

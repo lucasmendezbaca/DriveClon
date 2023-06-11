@@ -1,0 +1,5 @@
+.dashboard_main_container {
+    display: flex;
+    background-color: #f7f9fc;
+    min-height: calc(100vh - 70px);
+}

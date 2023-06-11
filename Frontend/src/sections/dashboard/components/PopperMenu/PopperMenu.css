@@ -1,0 +1,9 @@
+.popper-menu__botton-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popper-container {
+    width: fit-content;
+}

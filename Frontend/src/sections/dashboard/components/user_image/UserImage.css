@@ -1,0 +1,23 @@
+.dashboard-user-menu__info__img-container {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.dashboard-user-menu__info__img-container img {
+    width: 100%;
+}
+
+.dashboard-user-menu__info__img-container__icon-picture {
+    position: absolute;
+    background-image: url('./imgs/icon-picture.png');
+    width: 100%;
+    height: 20px;
+    bottom: 0;
+    background-color: #0000005d;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px;
+}

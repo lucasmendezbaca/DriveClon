@@ -1,0 +1,20 @@
+.dashboard_aside__button--movile {
+    display: none;
+}
+
+@media (max-width: 680px) {
+    .dashboard_aside__button--movile {
+        position: absolute;
+        bottom: 10%;
+        right: 10%;
+        z-index: 9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .dashboard_aside__button__icon--movile {
+        width: 40px;
+        height: 40px;
+    }
+}

@@ -1,0 +1,13 @@
+.account-settings-container {
+    padding: 24px;
+}
+
+.account-header {
+    text-align: center;
+}
+
+.account-header__title {
+    font-size: 28px;
+    color: #202124;
+    font-weight: 400;
+}
